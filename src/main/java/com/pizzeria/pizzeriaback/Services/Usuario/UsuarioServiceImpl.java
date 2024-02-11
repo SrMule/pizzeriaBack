@@ -28,11 +28,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario registro(Usuario usuario) {
-        if (usuarioRepository.existsById(usuario.getUsuarioId())) {
-            return null;
+        if (usuarioRepository.findByUsuarioCorreo(usuario.getUsuarioCorreo()).isEmpty()) {
+            usuarioRepository.save(usuario);
+            return usuario;
         }
-        usuarioRepository.save(usuario);
-        return usuario;
+        return null;
     }
 
     @Override
